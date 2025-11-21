@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+      - OLLAMA_MODEL=qwen2.5:14b
+      - DATABASE_URL=sqlite:///./data/tickets.db
+      - CHROMA_DB_PATH=./data/chroma_db
+    volumes:
+      - ./backend:/app
+      - backend-data:/app/data
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    depends_on:
+      - init-data
+    networks:
+      - devsecops-network
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: npm run dev -- --host 0.0.0.0 --port 3000
+    networks:
+      - devsecops-network
+
+  init-data:
+    build: ./backend
+    volumes:
+      - ./backend:/app
+      - backend-data:/app/data
+    command: >
+      sh -c "
+        python scripts/init_db.py &&
+        python scripts/ingest_policies.py
+      "
+    networks:
+      - devsecops-network
+
+volumes:
+  backend-data:
+
+networks:
+  devsecops-network:
+    driver: bridge

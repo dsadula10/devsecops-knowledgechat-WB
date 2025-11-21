@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.mypy_cache/
+.pytest_cache/
+.hypothesis/
+
+# Node/React
+node_modules/
+frontend/node_modules/
+dist/
+build/
+.out
+.next
+.nuxt
+.vercel
+
+# Data & DB
+backend/data/
+tickets.db
+chroma_db/
+*.db
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Docker
+.docker
+
+# IDE
+.idea/
+.vscode/
+.DS_Store
+*.swp
+*.swo
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

@@ -29,8 +29,6 @@ The system uses a multi-tier architecture:
 - **LLM**: Ollama running qwen2.5:14b locally (no external API calls)
 - **Storage**: ChromaDB for vector search, SQLite for structured data
 
-See the Mermaid diagram below for detailed component interactions.
-
 ## Technical Stack
 
 | Component | Technology | Purpose |
